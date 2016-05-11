@@ -11,6 +11,7 @@ body {
   padding: 0px;
   height: 600px;
   overflow: auto;
+  box-shadow: 10px 10px 60px 8px rgba(0,0,0,0.55);
 }
 
 .taskList {
