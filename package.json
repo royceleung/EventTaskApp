@@ -1,0 +1,14 @@
+{
+  "name": "calendarapp",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "bower": "^1.7.9",
+    "express": "^4.13.4",
+    "nodemon": "^1.9.2"
+  }
+}

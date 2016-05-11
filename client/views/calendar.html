@@ -1,0 +1,121 @@
+<div class="calendarPage" ng-init="initEvents()">
+
+  <div class="createTask">
+    <button type="button" class="btn btn-info eventButton" data-toggle="modal" data-target="#myModal">Create Event</button>
+
+   
+  </div>
+
+  <!-- Event Lists -->
+  <div class="col-xs-12 col-sm-5 uncompletedTasks taskContainer">
+    <h3>Uncompleted Tasks</h3>
+    <ul class="taskList">
+      <li class="taskElm" ng-repeat="task in eventData | orderBy:'date': reverse" ng-show="!task.completed">
+        <div class="elmDetails">
+          <p><b>{{task.title}}</b> </p>
+          <p> {{task.date | date: 'longDate'}} </p>
+          <p> {{task.description}} </p>
+        </div>
+        <div class="taskElmButtons">
+          <button type="button" class="btn btn-success btn-sm buttons" data-toggle="modal" data-target="#editModal" ng-click="loadEditModels($index)">Edit</button>
+          <button type="button" class="btn btn-danger btn-sm buttons" ng-click="deleteEvent($index)">Delete</button>
+          <button type="button" class="btn btn-primary btn-sm buttons" ng-click="taskStatus($index)"><i class="fa fa-check-circle-o statusIcon buttons" aria-hidden="true"></i></button>
+        </div>
+      </li>
+    </ul>
+  </div>
+
+  <div class="col-xs-12 col-sm-5 col-sm-offset-2 completedTasks taskContainer">
+    <h3>Completed Tasks</h3>
+    <ul class="taskList">
+      <li class="taskElm" ng-repeat="task in eventData  | orderBy:'date': reverse" ng-show="task.completed">
+        <div class="elmDetails">
+          <p> <b>{{task.title}} </b></p>
+          <p> {{task.date | date: 'longDate'}} </p>
+          <p> {{task.description}} </p>
+        </div>
+       <div class="taskElmButtons">
+          <button type="button" class="btn btn-success btn-sm buttons" data-toggle="modal" data-target="#editModal" ng-click="loadEditModels($index)">Edit</button>
+          <button type="button" class="btn btn-danger btn-sm buttons" ng-click="deleteEvent($index)">Delete</button>
+          <button type="button" class="btn btn-primary btn-sm buttons" ng-click="taskStatus($index)"><i class="fa fa-times-circle-o statusIcon buttons" aria-hidden="true"></i></button>
+        </div>
+      </li>
+    </ul>
+  </div>
+
+</div>
+
+
+<!-- New Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Task Information</h4>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="form-group">
+            <label for="taskTitle">Title</label>
+            <input type="text" class="form-control" id="eventTitle" ng-model="newTitle" required>
+          </div>
+          <div class="form-group">
+            <label for="taskDate">Date</label>
+            <input type="date" class="form-control" id="eventDate" ng-model="newDate" required>
+          </div>
+          <div class="form-group">
+            <label for="taskDescription">Despcription</label>
+            <input type="text" class="form-control" id="eventDescription" ng-model="newDescription" required>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clearEventValues()">Close</button>
+        <button type="button" class="btn btn-primary" 
+        ng-click="saveNewEvent()"
+        ng-disabled="!newTitle || !newDate || !newDescription"
+        >Save Task</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- End of Modal -->
+
+<!-- Edit Modal -->
+<div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Edit Task</h4>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="form-group">
+            <label for="taskTitle">Title</label>
+            <input type="text" class="form-control" id="eventTitle" ng-model="editTitle" required>
+          </div>
+          <div class="form-group">
+            <label for="taskDate">Date</label>
+            <input type="date" class="form-control" id="eventDate" ng-model="editDate" required>
+          </div>
+          <div class="form-group">
+            <label for="taskDescription">Despcription</label>
+            <input type="text" class="form-control" id="eventDescription" ng-model="editDescription" required>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clearEventValues()">Close</button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal"
+        ng-click="saveEdit($index)"
+        ng-disabled="!editTitle || !editDate || !editDescription"
+        >Save Edit</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- End of Modal -->
+
+
